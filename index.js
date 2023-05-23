@@ -1,30 +1,43 @@
+const express = require('express');
 const { PrismaClient } = require('@prisma/client');
+
 const prisma = new PrismaClient();
+const app = express();
 
-async function createUser() {
-  const user = await prisma.user.create({
-    data: {
-      name: 'John Doe',
-      email: 'john@example.com',
-    },
-  });
-  console.log('Created user:', user);
-}
+// Middleware to parse JSON bodies
+app.use(express.json());
 
-async function getUsers() {
-  const users = await prisma.user.findMany();
-  console.log('All users:', users);
-}
-
-async function main() {
+// Route to add a new user
+app.post('/add_user', async (req, res) => {
   try {
-    await createUser();
-    await getUsers();
+    const { name, email } = req.body;
+
+    const user = await prisma.user.create({
+      data: {
+        name,
+        email,
+      },
+    });
+
+    res.json(user);
   } catch (error) {
     console.error(error);
-  } finally {
-    await prisma.$disconnect();
+    res.status(500).json({ error: 'Failed to create user' });
   }
-}
+});
 
-main();
+// Route to get all users
+app.get('/all_users', async (req, res) => {
+  try {
+    const users = await prisma.user.findMany();
+    res.json(users);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Failed to fetch users' });
+  }
+});
+
+// Start the server
+app.listen(3000, () => {
+  console.log('Server is running on port 3000');
+});
