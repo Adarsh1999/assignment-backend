@@ -1,7 +1,8 @@
-const { PrismaClient } = require('@prisma/client');
+import { PrismaClient } from '@prisma/client';
+
 const prisma = new PrismaClient();
 
-async function createUser(req, res) {
+export async function createUser(req, res) {
   try {
     const { name, email } = req.body;
 
@@ -18,7 +19,3 @@ async function createUser(req, res) {
     res.status(500).json({ error: 'Failed to create user' });
   }
 }
-
-module.exports = {
-  createUser,
-};
