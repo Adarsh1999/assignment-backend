@@ -1,9 +1,10 @@
-import express from 'express';
-import { Router } from 'express';
-import { getAllQuestions } from '../controllers/questionController';
+import express from "express";
+import questionController from "../controllers/questionController.js";
 
-const router = Router();
+const router = express.Router();
 
-router.get('/', getAllQuestions);
+router.post("/create", questionController.createQuestion);
+
+router.get("/get", questionController.getQuestions);
 
 export default router;

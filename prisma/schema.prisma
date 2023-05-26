@@ -7,64 +7,36 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  username  String   @unique
-  password  String
-  answer    Answer[]
-}
-
 model Question {
-  id                 Int                  @id @default(autoincrement())
-  title              String
-  description        String?
-  modalsDescription  String?
-  answers            Answer[]
-  fields             Field[]
-  OptionQuestionLink OptionQuestionLink[]
-}
-
-model Field {
-  id            Int                 @id @default(autoincrement())
-  questionId    Int
-  fieldTypeName String 
-  stringValue   String?             @default("")
-  intValue      Int?                @default(0)
-  booleanValue  Boolean?
-  answerId      Int?
-  answer        Answer[]
-  question      Question            @relation(fields: [questionId], references: [id])
-  optionLinks   OptionQuestionLink?
-  options       Option[]            @relation("FieldOptions")
-}
-
-model Option {
-  id          Int                  @id @default(autoincrement())
-  value       String
-  answer      Answer[]
-  optionLinks OptionQuestionLink[]
-  fields      Field[]              @relation("FieldOptions")
-}
-
-model OptionQuestionLink {
-  id         Int      @id @default(autoincrement())
-  optionId   Int
-  questionId Int
-  fieldId    Int?     @unique
-  Field      Field?   @relation(fields: [fieldId], references: [id])
-  option     Option   @relation(fields: [optionId], references: [id])
-  question   Question @relation(fields: [questionId], references: [id])
+  id          Int      @id
+  title       String
+  description String
+  fields      Field[]
+  modals      String?
+  answers     Answer[]
+  options     String[]
 }
 
 model Answer {
   id         Int      @id @default(autoincrement())
-  questionId Int
-  userId     Int
-  fieldId    Int?
-  optionId   Int?
-  value      Field?   @relation(fields: [fieldId], references: [id])
-  option     Option?  @relation(fields: [optionId], references: [id])
+  answer     String
   question   Question @relation(fields: [questionId], references: [id])
-  user       User     @relation(fields: [userId], references: [id])
+  questionId Int
+  field        Field   @relation(fields: [fieldId], references: [id])
+  fieldId      Int
 }
+
+
+model Field {
+  id   Int    @id
+  type String // field will be 5 types mcq, string, number ,percentage, boolean
+  answers      Answer[]
+  question     Question[]
+}
+
+// model Options {
+//   id Int @id
+//   option String
+//   question Question @relation(fields: [questionId], references: [id])
+//   questionId Int
+// }

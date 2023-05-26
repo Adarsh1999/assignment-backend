@@ -1,11 +1,64 @@
-import questionModel from '../models/questionModel.js';
+import { PrismaClient } from "@prisma/client";
 
-export async function getAllQuestions(req, res) {
+const prisma = new PrismaClient();
+
+const getQuestions = async (req, res) => {
   try {
-    const questions = await questionModel.getAllQuestions();
-    res.json(questions);
+    const questions = await prisma.question.findMany({
+      include: {
+        fields: true,
+      },
+    });
+
+    const transformedQuestions = questions.map((question) => {
+      const { id, title, description, fields, modals, options } = question;
+
+      const fieldTypes = fields.map((field) => field.type);
+
+      const transformedQuestion = {
+        id,
+        title,
+        description,
+        fields: fieldTypes,
+      };
+
+      if (modals) {
+        transformedQuestion.modals = { description: modals };
+      }
+
+      if (fieldTypes.includes('mcq') && options) {
+        transformedQuestion.options = options;
+      }
+
+      return transformedQuestion;
+    });
+    res.json(transformedQuestions);
+    console.log(transformedQuestions);
   } catch (error) {
-    console.error('Error retrieving questions:', error);
-    res.status(500).json({ error: 'Internal server error' });
+    console.error(error);
+  } finally {
+    await prisma.$disconnect();
   }
-}
+};
+
+
+const createQuestion = async (req, res) => {
+  try {
+    const { title, description, fields, modals } = req.body;
+    const question = await prisma.question.create({
+      data: {
+        title,
+        description,
+        fields,
+        modals,
+      },
+    });
+    res.json(question);
+  } catch (error) {
+    console.error("Error creating question:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+
+export default { createQuestion,getQuestions };
