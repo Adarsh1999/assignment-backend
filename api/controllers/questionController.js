@@ -48,19 +48,24 @@ const getQuestions = async (req, res) => {
 
 const createQuestion = async (req, res) => {
   try {
-    const { title, description, fields, modals } = req.body;
+    const { title, description, fields, modals, options } = req.body;
+
     const question = await prisma.question.create({
       data: {
         title,
         description,
-        fields,
+        fields: {
+          connect: fields.map((fieldId) => ({ id: fieldId })),
+        },
         modals,
+        options,
       },
     });
+
     res.json(question);
   } catch (error) {
-    console.error("Error creating question:", error);
-    res.status(500).json({ error: "Internal server error" });
+    console.error('Error creating question:', error);
+    res.status(500).json({ error: 'Internal server error' });
   }
 };
 
