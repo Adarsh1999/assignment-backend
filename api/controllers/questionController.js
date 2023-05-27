@@ -14,12 +14,14 @@ const getQuestions = async (req, res) => {
       const { id, title, description, fields, modals, options } = question;
 
       const fieldTypes = fields.map((field) => field.type);
+      const fieldIds = fields.map((field) => field.id); // Add this line
 
       const transformedQuestion = {
         id,
         title,
         description,
         fields: fieldTypes,
+        fields_id: fieldIds, // Add this line
       };
 
       if (modals) {
@@ -32,6 +34,7 @@ const getQuestions = async (req, res) => {
 
       return transformedQuestion;
     });
+
     res.json(transformedQuestions);
     console.log(transformedQuestions);
   } catch (error) {
@@ -40,6 +43,7 @@ const getQuestions = async (req, res) => {
     await prisma.$disconnect();
   }
 };
+
 
 
 const createQuestion = async (req, res) => {

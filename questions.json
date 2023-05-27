@@ -6,25 +6,39 @@
     "modals": {
       "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt sint ex odio et consectetur ullam placeat ea in alias corporis quam, facilis fugiat ipsum, adipisci veritatis, quas natus ipsam nam repellat aliquid expedita. Accusamus non provident perspiciatis nostrum!"
     },
-    "fields": ["text", "percentage"]
+    "fields": ["text", "percentage"],
+    "fields_id": [
+      2,
+      1
+  ]
   },
   {
     "id": 2,
     "title": "How many states are in the United States?",
     "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt sint ex odio et consectetur ullam placeat ea in alias corporis quam, facilis fugiat ipsum, adipisci veritatis, quas natus ipsam nam repellat aliquid expedita. Accusamus non provident perspiciatis nostrum!",
-    "fields": ["number"]
+    "fields": ["number"],
+    "fields_id": [
+      5
+  ]
   },
   {
     "id": 3,
     "title": "Is Tennessee a state in the United States?",
     "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt sint ex odio et consectetur ullam placeat ea in alias corporis quam, facilis fugiat ipsum, adipisci veritatis, quas natus ipsam nam repellat aliquid expedita. Accusamus non provident perspiciatis nostrum!",
-    "fields": ["boolean"]
+    "fields": ["boolean"],
+    "fields_id": [
+      4
+  ]
   },
   {
     "id": 4,
     "title": "Which of the following is not a branch of the United States Federal Government?",
     "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt sint ex odio et consectetur ullam placeat ea in alias corporis quam, facilis fugiat ipsum, adipisci veritatis, quas natus ipsam nam repellat aliquid expedita. Accusamus non provident perspiciatis nostrum!",
     "fields": ["mcq", "number"],
+    "fields_id": [
+      5,
+      3
+  ],
     "options": [
       "Executive",
       "Legislative",
