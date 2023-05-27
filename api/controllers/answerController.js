@@ -54,4 +54,42 @@ const saveAnswer = async (req, res) => {
   }
 };
 
-export default { saveAnswer };
+const getAnswer = async (req, res) => {
+  try {
+    const { questionId, fieldId } = req.query;
+
+    // Fetch the answer using the questionId and fieldId
+    const answer = await prisma.answer.findFirst({
+      where: {
+        questionId: parseInt(questionId),
+        fieldId: parseInt(fieldId),
+      },
+    });
+
+    if (answer) {
+      res.status(200).json(answer);
+    } else {
+      res.status(404).json({ error: "Answer not found" });
+    }
+  } catch (error) {
+    // Handle the error appropriately
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+const getAllAnswers = async (req, res) => {
+  try {
+    // Fetch all answers
+    const answers = await prisma.answer.findMany();
+
+    res.status(200).json(answers);
+  } catch (error) {
+    // Handle the error appropriately
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+
+
+export default { saveAnswer,getAnswer, getAllAnswers };
