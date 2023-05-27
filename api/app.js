@@ -1,7 +1,6 @@
 import cors from 'cors';
 
 import express from 'express';
-import userRoutes from './routes/userRoutes.js';
 import questionRoutes from './routes/questionRoutes.js';
 import answerRoutes from './routes/answerRoutes.js';
 
@@ -13,8 +12,7 @@ app.use(cors());
 // Middleware to parse JSON bodies
 app.use(express.json());
 
-// Route for creating a new user
-app.use('/users', userRoutes);
+// Route for creating a new question or save answer
 app.use("/questions", questionRoutes);
 app.use("/answer", answerRoutes);
 

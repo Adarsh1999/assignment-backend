@@ -14,14 +14,14 @@ const getQuestions = async (req, res) => {
       const { id, title, description, fields, modals, options } = question;
 
       const fieldTypes = fields.map((field) => field.type);
-      const fieldIds = fields.map((field) => field.id); // Add this line
+      const fieldIds = fields.map((field) => field.id); 
 
       const transformedQuestion = {
         id,
         title,
         description,
         fields: fieldTypes,
-        fields_id: fieldIds, // Add this line
+        fields_id: fieldIds, 
       };
 
       if (modals) {
