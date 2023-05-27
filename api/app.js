@@ -19,7 +19,7 @@ app.use("/answer", answerRoutes);
 // Start the server
 try {
     // Start server
-    app.listen(3001, () => console.log('Server started at port 3001'));
+    app.listen(80, () => console.log('Server started at port 80'));
 } catch (err) {
     // Handle errors
     console.log(err);
