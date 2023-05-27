@@ -23,7 +23,7 @@ The `/answer` route has the following API:
 
 - `/answer/save`:
   - Method: POST
-  - URL: `http://localhost:3001/answer/save`
+  - URL: `http://localhost:80/answer/save`
   - Parameters:
     ```json
     {
@@ -35,14 +35,22 @@ The `/answer` route has the following API:
       "fieldId": ["3", "5"]
     }
     ```
+    
+- `/answer/all`:
+  - Method: GET
+  - URL: `http://localhost:80/answer/all`
 
+- `/answer/get`:
+  - Method: get
+  - URL: `http://localhost:80/answer/all?questionId=1&fieldId=2`
+  
 - `/questions/get`:
   - Method: GET
-  - URL: `http://localhost:3001/questions/get`
+  - URL: `http://localhost:80/questions/get`
 
 - `/questions/create`:
   - Method: POST
-  - URL: `http://localhost:3001/questions/create`
+  - URL: `http://localhost:80/questions/create`
   - Data Parameters:
     ```json
     {
