@@ -93,5 +93,5 @@ $ cd api
 $ node app.js
 ```
 
-
+**NOTE:**- I have a service file in the `api/services` folder named as `populate_db.js` to populate the database with the dummy data from questions.json and Also would try to make swagger docs for the API for better representation of the data
 
